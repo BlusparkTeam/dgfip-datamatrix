@@ -21,34 +21,34 @@ class DatamatrixGenerator
         $donneesMetiers = str_repeat(' ', 40);
         $spaceZone = str_repeat(' ', 24);
 
-        $invoiceAmount = $datamatrixReference->getAmount();
+        $invoiceAmount = $datamatrixReference->amount;
 
-        if (strlen($datamatrixReference->getAmount()) < 2) {
+        if (strlen($datamatrixReference->amount) < 2) {
             $invoiceAmount = str_repeat('0', 3 - strlen($invoiceAmount)).$invoiceAmount;
         }
 
-        $ensemble6 = $datamatrixReference->getEstablishmentCode()
-            .$datamatrixReference->getPeriodeCode()
-            .$datamatrixReference->getRevenueCode()
+        $ensemble6 = $datamatrixReference->establishmentCode
+            .$datamatrixReference->periodeCode
+            .$datamatrixReference->revenueCode
             .'00'
-            .$datamatrixReference->getExercice()->format('y')
+            .$datamatrixReference->fiscalYear->format('y')
         ;
 
-        $ensemble3 = $datamatrixReference->getEmitterCode().self::BANK_ESTABLISHMENT_CODE;
+        $ensemble3 = $datamatrixReference->emitterCode.self::BANK_ESTABLISHMENT_CODE;
 
         $numDebtor = '00'
-            .$datamatrixReference->getExercice()->format('Y')
-            .str_repeat('0', 9 - strlen($datamatrixReference->getInvoiceNumber()))
-            .$datamatrixReference->getInvoiceNumber()
+            .$datamatrixReference->fiscalYear->format('Y')
+            .str_repeat('0', 9 - strlen($datamatrixReference->invoiceNumber))
+            .$datamatrixReference->invoiceNumber
         ;
 
         $ensemble2 = $this->generateNumDebtorKey(
-            $datamatrixReference->getExercice(),
-            (int) $datamatrixReference->getPeriodeCode(),
+            $datamatrixReference->fiscalYear,
+            (int) $datamatrixReference->periodeCode,
             (int) $numDebtor,
         )
             .$numDebtor
-            .$datamatrixReference->getAccountantCode()
+            .$datamatrixReference->accountantCode
             .self::APPLICATION_CODE
             .self::DOCUMENT_CODE
         ;

@@ -6,7 +6,7 @@ use Bluspark\DgfipDatamatrix\Exception\DatamatrixFunctionImageCreateDoesNotExist
 use jucksearm\barcode\Datamatrix;
 use jucksearm\barcode\lib\DatamatrixFactory;
 
-final class DgfipDatamatrix
+class DgfipDatamatrix
 {
     public function __construct(
         private readonly string $code,
@@ -41,8 +41,17 @@ final class DgfipDatamatrix
 
     private function initFactory(): DatamatrixFactory
     {
+        if (!class_exists('jucksearm\barcode\datamatrix')) {
+            throw new \RuntimeException('please install jucksearm/php-barcode first.');
+        }
+
         return Datamatrix::factory()
                   ->setMargin($this->margin)
         ;
+    }
+
+    public function asString(): string
+    {
+        return $this->code;
     }
 }

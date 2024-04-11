@@ -17,21 +17,19 @@ class DatamatrixGeneratorTest extends TestCase
         $datamatrixGenerator = new DatamatrixGenerator();
 
         $this->assertSame(
-            Datamatrix::factory()
-                      ->setMargin(0)
-                      ->setCode('                                                                004009300241940033000160 28170020240000012340350314947806    10000')
-                      ->getDatamatrixSvgData(),
+            '                                                                004009300241940033000160 28170020240000012340350314947806    10000',
             $datamatrixGenerator->generateDatamatrix(
-                (new DatamatrixReference())
-                    ->setExercice(new \DateTimeImmutable('01/01/2024'))
-                    ->setInvoiceNumber('1234')
-                    ->setAmount('10000')
-                    ->setEmitterCode('940033')
-                    ->setEstablishmentCode('004')
-                    ->setRevenueCode('093')
-                    ->setPeriodeCode('0')
-                    ->setAccountantCode('035031')
-            )->asSvg()
+                new DatamatrixReference(
+                    fiscalYear: new \DateTimeImmutable('01/01/2024'),
+                    invoiceNumber: '1234',
+                    emitterCode: '940033',
+                    establishmentCode: '004',
+                    revenueCode: '093',
+                    accountantCode: '035031',
+                    periodeCode: '0',
+                    amount: '10000',
+                )
+            )->asString()
         );
     }
 }

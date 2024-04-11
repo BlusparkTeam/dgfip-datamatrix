@@ -33,7 +33,7 @@ $generator = new DataMatrixGenerator();
 $datamatrix = $generator->generate($reference);
 
 
-echo "The datamatrix code is: " . $datamatrix->asHtml();
+echo "The datamatrix code is: " . $datamatrix->asString();
 ```
 
 ### Generating images
@@ -58,7 +58,7 @@ file_put_contents("datamatrix.svg", $svg);
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the CeCILL-B License - see the [LICENSE](LICENSE) file for details.
 
 ## Sponsors
 
