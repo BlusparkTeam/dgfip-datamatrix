@@ -14,16 +14,20 @@ composer require bluspark/dgfip-datamatrix
 ## Usage
 
 ```php
-$provider = new DataMatrixProvider();
-$provider
-    ->setEmitterCode("12345678901")
-    ->setEstablishmentCode("12345678901")
-    ->setRevenueCode("12345678901")
-    ->setAccountanceCode("12345678901")
-    ->setPeriodCode("12345678901");
+
+use Bluspark\DgfipDatamatrix\DataMatrixGenerator;
+use Bluspark\DgfipDatamatrix\DataMatrixReference;
+
+$reference = new DataMatrixReference();
+$reference
+    ->setEmitterCode("...")
+    ->setEstablishmentCode("...")
+    ->setRevenueCode("...")
+    ->setAccountanceCode("...")
+    ->setPeriodCode("...");
 
 $generator = new DataMatrixGenerator();
-$datamatrix = $generator->generate($provider);
+$datamatrix = $generator->generate($reference);
 
 
 echo "The datamatrix code is: " . $datamatrix->asString();
