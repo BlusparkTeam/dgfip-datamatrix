@@ -24,13 +24,16 @@ $reference
     ->setEstablishmentCode("...")
     ->setRevenueCode("...")
     ->setAccountanceCode("...")
-    ->setPeriodCode("...");
+    ->setPeriodCode("...")
+    ->setInvoiceNumber("...")
+    ->setExercice(new DateTimeImmutable())
+    ;
 
 $generator = new DataMatrixGenerator();
 $datamatrix = $generator->generate($reference);
 
 
-echo "The datamatrix code is: " . $datamatrix->asString();
+echo "The datamatrix code is: " . $datamatrix->asHtml();
 ```
 
 ### Generating images
