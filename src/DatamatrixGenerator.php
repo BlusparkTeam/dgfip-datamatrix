@@ -3,7 +3,6 @@
 namespace Bluspark\DgfipDatamatrix;
 
 use Bluspark\DgfipDatamatrix\Exception\MalformedEnsemble;
-use http\Exception\InvalidArgumentException;
 
 class DatamatrixGenerator
 {
@@ -44,9 +43,9 @@ class DatamatrixGenerator
         ;
 
         $ensemble2 = $this->generateNumDebtorKey(
-                $datamatrixReference->getExercice(),
-                (int) $datamatrixReference->getPeriodeCode(),
-                (int) $numDebtor,
+            $datamatrixReference->getExercice(),
+            (int) $datamatrixReference->getPeriodeCode(),
+            (int) $numDebtor,
         )
             .$numDebtor
             .$datamatrixReference->getAccountantCode()

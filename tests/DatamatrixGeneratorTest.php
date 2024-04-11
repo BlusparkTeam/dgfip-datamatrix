@@ -6,6 +6,7 @@ use Bluspark\DgfipDatamatrix\DatamatrixGenerator;
 use Bluspark\DgfipDatamatrix\DatamatrixReference;
 use jucksearm\barcode\Datamatrix;
 use PHPUnit\Framework\TestCase;
+
 /**
  * @group billing
  */
