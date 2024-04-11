@@ -18,9 +18,7 @@ class DatamatrixGeneratorTest extends TestCase
         $this->assertSame(
             Datamatrix::factory()
                       ->setMargin(0)
-                      ->setCode(
-                          '                                                                004009300241940033000160 28170020240000012340350314947806    10000'
-                      )
+                      ->setCode('                                                                004009300241940033000160 28170020240000012340350314947806    10000')
                       ->getDatamatrixSvgData(),
             $datamatrixGenerator->generateDatamatrix(
                 (new DatamatrixReference())

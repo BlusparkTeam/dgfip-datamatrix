@@ -6,7 +6,7 @@
         "phpunit/phpunit": "^10.5",
         "jucksearm/php-barcode": "^1.0"
     },
-    "license": "MIT",
+    "license": "CECILL-B",
     "autoload": {
         "psr-4": {
             "Bluspark\\DgfipDatamatrix\\": "src/"
