@@ -41,7 +41,7 @@ class DgfipDatamatrix
 
     private function initFactory(): DatamatrixFactory
     {
-        if (!class_exists('jucksearm\barcode\datamatrix')) {
+        if (!class_exists('jucksearm\\barcode\\Datamatrix')) {
             throw new \RuntimeException('please install jucksearm/php-barcode first.');
         }
 

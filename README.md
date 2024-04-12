@@ -1,4 +1,4 @@
-# DGFIP Datamatrix
+# DGFIP Datamatrix [![CI](https://github.com/BlusparkTeam/dgfip-datamatrix/actions/workflows/ci.yml/badge.svg)](https://github.com/BlusparkTeam/dgfip-datamatrix/actions/workflows/ci.yml)
 
 Way to generate, in PHP, a [datamatrix for DGFIP](https://www.collectivites-locales.gouv.fr/files/Finances%20locales/2.%20am%C3%A9liorer%20l'info%20et%20gestion/3.%20d%C3%A9mat%20comptable%20et%20bdgr/PES/PES_V2/fiches%20pratiques/recettes/cahier_des_charges_editeurs.v6_0.pdf) (French tax administration).
 
@@ -23,10 +23,10 @@ $reference
     ->setEmitterCode("...")
     ->setEstablishmentCode("...")
     ->setRevenueCode("...")
-    ->setAccountanceCode("...")
-    ->setPeriodCode("...")
+    ->setAccountantCode("...")
+    ->setFiscalYear("...")
     ->setInvoiceNumber("...")
-    ->setExercice(new DateTimeImmutable())
+    ->setAmountInCents("...")
     ;
 
 $generator = new DataMatrixGenerator();
