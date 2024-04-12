@@ -4,9 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7fc635cc981ecee263b8f8860560b590",
+    "content-hash": "627d83a44c8beaac84929d89d1e0d303",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "jucksearm/php-barcode",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jucksearm/php-barcode.git",
+                "reference": "8b67dbe7cebfe0228a56911a33985bf79a67998d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jucksearm/php-barcode/zipball/8b67dbe7cebfe0228a56911a33985bf79a67998d",
+                "reference": "8b67dbe7cebfe0228a56911a33985bf79a67998d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jucksearm\\barcode\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jucksearm",
+                    "email": "jucksearm.bkk@gmail.com"
+                }
+            ],
+            "description": "Barcode Generation Package inspired by Nicola Asuni.",
+            "keywords": [
+                "CODE 128",
+                "barcode",
+                "datamatrix",
+                "pdf417",
+                "php barcode",
+                "qr code",
+                "qrcode"
+            ],
+            "support": {
+                "issues": "https://github.com/jucksearm/php-barcode/issues",
+                "source": "https://github.com/jucksearm/php-barcode/tree/1.0.2"
+            },
+            "time": "2023-08-06T10:30:39+00:00"
+        },
         {
             "name": "myclabs/deep-copy",
             "version": "1.11.1",

@@ -3,12 +3,18 @@
     "description": "Way to generate, in PHP, a datamatrix for DGFIP (French tax administration).",
     "type": "library",
     "require-dev": {
-        "phpunit/phpunit": "^10.5"
+        "phpunit/phpunit": "^10.5",
+        "jucksearm/php-barcode": "^1.0"
     },
-    "license": "MIT",
+    "license": "CECILL-B",
     "autoload": {
         "psr-4": {
             "Bluspark\\DgfipDatamatrix\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bluspark\\DgfipDatamatrix\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -16,8 +22,7 @@
             "name": "Bluspark"
         }
     ],
-    "require": {},
     "suggest": {
-        "jucksearm\\barcode": "To generate the datamatrix image."
+        "jucksearm/php-barcode": "To generate the datamatrix image."
     }
 }
