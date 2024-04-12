@@ -3,62 +3,62 @@
 namespace Bluspark\DgfipDatamatrix;
 
 use Bluspark\DgfipDatamatrix\Exception\MalformedEnsemble;
+use DateTimeInterface;
+use InvalidArgumentException;
 
 class DatamatrixGenerator
 {
-    public const DOCUMENT_CODE            = '9'; // Fixed value
+    protected const DOCUMENT_CODE = '9'; // Fixed value
 
-    public const BANK_ESTABLISHMENT_CODE = '0001'; // Fixed value
+    protected const BANK_ESTABLISHMENT_CODE = '0001'; // Fixed value
 
-    public const NATURE_CODE = '8'; // Fixed value
+    protected const NATURE_CODE = '8'; // Fixed value
 
-    public const BANK_PROCESSING_CODE = '06'; // Fixed value
+    protected const BANK_PROCESSING_CODE = '06'; // Fixed value
 
-    public const APPLICATION_CODE = '4'; // Fixed value
+    protected const APPLICATION_CODE = '4'; // Fixed value
 
-    public function generateDatamatrix(DatamatrixReference $datamatrixReference): DgfipDatamatrix
+    public function generate(DatamatrixReference $datamatrixReference): DgfipDatamatrix
     {
+        // Ensure that all data is present
+        if (!$datamatrixReference->isComplete()) {
+            throw new InvalidArgumentException('All required fields must be set');
+        }
+
         $donneesMetiers = str_repeat(' ', 40);
         $spaceZone = str_repeat(' ', 24);
 
-        $invoiceAmount = $datamatrixReference->amount;
+        $invoiceAmount = (string)$datamatrixReference->getAmountInCents();
+        $invoiceAmount = str_pad($invoiceAmount, 3, '0', STR_PAD_LEFT);
 
-        if (strlen($datamatrixReference->amount) < 2) {
-            $invoiceAmount = str_repeat('0', 3 - strlen($invoiceAmount)).$invoiceAmount;
-        }
+        $ensemble6 = $datamatrixReference->getEstablishmentCode()
+            . $datamatrixReference->getPeriodeCode()
+            . $datamatrixReference->getRevenueCode()
+            . '00'
+            . $datamatrixReference->getFiscalYear()->format('y');
 
-        $ensemble6 = $datamatrixReference->establishmentCode
-            .$datamatrixReference->periodeCode
-            .$datamatrixReference->revenueCode
-            .'00'
-            .$datamatrixReference->fiscalYear->format('y')
-        ;
-
-        $ensemble3 = $datamatrixReference->emitterCode.self::BANK_ESTABLISHMENT_CODE;
+        $ensemble3 = $datamatrixReference->getEmitterCode() . self::BANK_ESTABLISHMENT_CODE;
 
         $numDebtor = '00'
-            .$datamatrixReference->fiscalYear->format('Y')
-            .str_repeat('0', 9 - strlen($datamatrixReference->invoiceNumber))
-            .$datamatrixReference->invoiceNumber
+            .$datamatrixReference->getFiscalYear()->format('Y')
+            . str_pad($datamatrixReference->getInvoiceNumber(), 9, '0', STR_PAD_LEFT)
         ;
 
         $ensemble2 = $this->generateNumDebtorKey(
-            $datamatrixReference->fiscalYear,
-            (int) $datamatrixReference->periodeCode,
-            (int) $numDebtor,
-        )
-            .$numDebtor
-            .$datamatrixReference->accountantCode
-            .self::APPLICATION_CODE
-            .self::DOCUMENT_CODE
-        ;
+                $datamatrixReference->getFiscalYear(),
+                (int)$datamatrixReference->getPeriodeCode(),
+                (int)$numDebtor,
+            )
+            . $numDebtor
+            . $datamatrixReference->getAccountantCode()
+            . self::APPLICATION_CODE
+            . self::DOCUMENT_CODE;
 
         $ensemble1 = self::NATURE_CODE
-            .self::BANK_PROCESSING_CODE
-            .' '
-            .str_repeat(' ', 8 - strlen($invoiceAmount))
-            .$invoiceAmount
-        ;
+            . self::BANK_PROCESSING_CODE
+            . ' '
+            . str_repeat(' ', 8 - strlen($invoiceAmount))
+            . $invoiceAmount;
 
         $ensemble1SpacePos = strpos($ensemble1, ' ');
 
@@ -68,16 +68,16 @@ class DatamatrixGenerator
 
         return new DgfipDatamatrix(
             $donneesMetiers
-            .$spaceZone
-            .$ensemble6
-            .$this->generateEnsemble6Key($ensemble6)
-            .$ensemble3
-            .$this->generateBase100Key($ensemble3)
-            .' '
-            .$this->generateBase100Key($ensemble2)
-            .$ensemble2
-            .$this->generateBase100Key(str_replace(' ', '0', substr_replace($ensemble1, '', $ensemble1SpacePos, 1)))
-            .$ensemble1
+            . $spaceZone
+            . $ensemble6
+            . $this->generateEnsemble6Key($ensemble6)
+            . $ensemble3
+            . $this->generateBase100Key($ensemble3)
+            . ' '
+            . $this->generateBase100Key($ensemble2)
+            . $ensemble2
+            . $this->generateBase100Key(str_replace(' ', '0', substr_replace($ensemble1, '', $ensemble1SpacePos, 1)))
+            . $ensemble1
         );
     }
 
@@ -85,7 +85,7 @@ class DatamatrixGenerator
     {
         $key = 11 - (int)$ensemble6 % 11;
 
-        return (string) match ($key) {
+        return (string)match ($key) {
             10 => 0,
             11 => 1,
             default => $key,
@@ -99,24 +99,23 @@ class DatamatrixGenerator
         $result = 0;
 
         foreach ($subjectArray as $rank => $value) {
-            $result += (int) $value * ($rank + 1);
+            $result += (int)$value * ($rank + 1);
         }
 
         return (string)($result % 100);
     }
 
-    private function generateNumDebtorKey(\DateTimeInterface $exercice, int $codePeriode, int $numDebtor): string
+    private function generateNumDebtorKey(DateTimeInterface $fiscalYear, int $codePeriode, int $numDebtor): string
     {
         $key = (
-            (
-                (int)$exercice->format('y')
-                + $codePeriode
-                + $numDebtor
-            ) % 23
-        )
-            + 1
-        ;
+                (
+                    (int)$fiscalYear->format('y')
+                    + $codePeriode
+                    + $numDebtor
+                ) % 23
+            )
+            + 1;
 
-        return (string)($key < 10 ? '0'.$key : $key);
+        return (string)($key < 10 ? '0' . $key : $key);
     }
 }
