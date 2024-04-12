@@ -65,3 +65,7 @@ This project is licensed under the CeCILL-B License - see the [LICENSE](LICENSE)
 ![Bluspark logo](./docs/bluspark_logo.jpeg)
 
 Bluspark is a Saas application to operate infrastructure of agglomerations and cities. It is a complete solution to manage the life cycle of your infrastructure, from the design to the maintenance.
+
+![Consoneo logo](./docs/consoneo_logo.jpeg)
+
+The digital SaaS platform for financing and managing energy renovation aid
