@@ -26,6 +26,7 @@ class FirstSubsetTest extends TestCase
         yield [10, '806      010'];
         yield [100, '806      100'];
         yield [1000, '806     1000'];
+        yield [2899, '806     2899'];
     }
 
     public static function provideTestSubsetKey(): \Generator
@@ -34,5 +35,8 @@ class FirstSubsetTest extends TestCase
         yield [10, '44'];
         yield [100, '45'];
         yield [1000, '46'];
+        // A key below ten must keep its leading zero, otherwise the whole line loses a
+        // character and everything after it shifts.
+        yield [2899, '01'];
     }
 }
