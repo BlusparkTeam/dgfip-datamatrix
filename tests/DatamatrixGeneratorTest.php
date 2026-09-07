@@ -57,7 +57,7 @@ class DatamatrixGeneratorTest extends TestCase
     {
         return [
             [
-                '                                                                004009300241940033000160 28170020240000012340350314947806    10000',
+                '                                                                004009300241940033000160 33200000000000012340350314947806    10000',
                 (new DatamatrixReference)
                     ->setFiscalYear(new DateTimeImmutable('2024-01-01'))
                     ->setInvoiceNumber('1234')
@@ -68,6 +68,21 @@ class DatamatrixGeneratorTest extends TestCase
                     ->setPeriodeCode('0')
                     ->setAmountInCents(10000),
 
+            ],
+            // Golden case, checked character by character against an optical line produced by
+            // the tax administration itself for the same input. A regression here means a slip
+            // that the encashment centre would reject.
+            'reference optical line' => [
+                '                                                                073109300267940033000160 01190000000002103820730104997806     6467',
+                (new DatamatrixReference)
+                    ->setFiscalYear(new DateTimeImmutable('2026-07-16'))
+                    ->setInvoiceNumber('210382')
+                    ->setEmitterCode('940033')
+                    ->setEstablishmentCode('073')
+                    ->setRevenueCode('093')
+                    ->setAccountantCode('073010')
+                    ->setPeriodeCode('1')
+                    ->setAmountInCents(6467),
             ],
         ];
     }

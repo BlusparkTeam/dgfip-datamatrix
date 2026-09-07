@@ -54,6 +54,6 @@ class FirstSubset extends Subset
             $result += (int)$value * ($rank + 1);
         }
 
-        return (string)($result % 100);
+        return str_pad((string)($result % 100), 2, '0', STR_PAD_LEFT);
     }
 }

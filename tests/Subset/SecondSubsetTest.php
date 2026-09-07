@@ -10,8 +10,8 @@ class SecondSubsetTest extends TestCase
 
     public function testSubsetString(): void
     {
-       $this->assertSame('190020240000013452349', (new SecondSubset(
-           new \DateTime('first day of 2024'),
+       $this->assertSame('130000000000013452349', (new SecondSubset(
+           new \DateTime('2024-01-01'),
            '06',
            '1345',
            '23',
@@ -20,8 +20,8 @@ class SecondSubsetTest extends TestCase
 
     public function testSubsetKey(): void
     {
-        $this->assertSame('33', (new SecondSubset(
-            new \DateTime('first day of 2024'),
+        $this->assertSame('93', (new SecondSubset(
+            new \DateTime('2024-01-01'),
             '06',
             '1345',
             '23',

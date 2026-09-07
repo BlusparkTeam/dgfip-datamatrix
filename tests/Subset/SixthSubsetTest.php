@@ -13,7 +13,7 @@ class SixthSubsetTest extends TestCase
            '042',
            '04',
            '93',
-           new \DateTime('first day of 2024'),
+           new \DateTime('2024-01-01'),
        ))->getSubsetString());
     }
 
@@ -23,7 +23,7 @@ class SixthSubsetTest extends TestCase
             '042',
             '04',
             '93',
-            new \DateTime('first day of 2024'),
+            new \DateTime('2024-01-01'),
         ))->getSubsetKey());
     }
 }
